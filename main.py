@@ -5,9 +5,8 @@ from game import HardGame, EasyGame
 from rules import Rules
 from high_scores import HighScores
 
-pygame.init()  # Initialization of pygame modules
+pygame.init()
 
-# Mapping screen names to classes
 screens = dict(
     zip(SCREEN_NAMES, [Menu, EasyGame, HardGame, Rules, HighScores])
 )
