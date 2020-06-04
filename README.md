@@ -12,14 +12,13 @@ The objective of the game is to make a ninja meditate for as long as possible to
 
 
 ---
-## Image Resources:
-Images used:
+Image resources:
 - Web Stock Review (n.d.), Hungry Clipart Evening Meal: https://webstockreview.net/image/hungry-clipart-evening-meal/1834961.html, accessed 12 March 2020
 - PNGHunter (n.d.), Ninja: https://pnghunter.com/png/ninja-12/, accessed 12 March 2020
 - Devian Art (n.d.), Ninja Star Dock Icon: https://www.deviantart.com/piepiepie12345667890/art/Ninja-star-dock-icon-K-ninja-111843227, accessed 12 March 2020
 
 
-Original music by Felipe Queiroga.
+Original music by Felipe Queiroga:
 - Ninja or Monk?: http://bit.ly/ninjaormonk
 - Don't you dare: http://bit.ly/dontyoudaresong
 ---
