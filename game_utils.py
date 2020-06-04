@@ -174,7 +174,16 @@ class EnemyNinja:
 
 
 class Panel:
+    '''
+    Defines the panel shown on the top of the game screen.
+    It mainly deals with displaying information for the user.
+    '''
+
     def __init__(self, is_easy):
+        '''
+        Initializes all attributes which will be shown on screen:
+        math question , player score, shuriken count.
+        '''
         self.is_easy = is_easy
 
         self.math_question = Question(is_easy)
@@ -205,23 +214,28 @@ class Panel:
         )
 
     def render(self, display):
+        '''Renders the whole panel on a given display'''
         self.render_math_question(display)
         self.render_score(display)
         self.render_shuriken_count(display)
 
     def render_math_question(self, display):
+        '''Renders the math question on a given display'''
         display.blit(self.math_question_text, [10, 10])
         display.blit(self.text_box, [10, 40])
         display.blit(self.keyboard_input_text, [13, 43])
 
     def render_score(self, display):
+        '''Renders the score on a given display'''
         display.blit(self.score_text, [225, 20])
 
     def render_shuriken_count(self, display):
+        '''Renders the shuriken count on a given display'''
         display.blit(GAME_CONSTANTS['PANEL_SHURIKEN_IMAGE'], [470, 15])
         display.blit(self.shuriken_count_text, [510, 20])
 
     def add_score(self):
+        '''Updates player score depending on game difficulty'''
         if self.is_easy:
             self.score += 5
         else:
@@ -232,6 +246,7 @@ class Panel:
         )
 
     def spend_shuriken(self):
+        '''Updates shuriken count when player throws a shuriken'''
         self.shuriken_count -= 1
 
         self.shuriken_count_text = render_font(
@@ -239,6 +254,7 @@ class Panel:
         )
 
     def process_keyboard(self, key):
+        '''Processed keyboard input (player typing answer)'''
         key_pressed = pygame.key.name(key)
 
         if key_pressed in '0123456789':
@@ -274,17 +290,32 @@ class Panel:
 
 
 class ShurikenController:
+    ''' 
+    Defines a controller to deal with all shurikens appearing on screen.
+    It is responsible for rendering and processing shuriken throws.
+    '''
+
     def __init__(self, panel):
+        ''' 
+        Initializes an array to store all shurikens appearing
+        on screen, and a panel attribute to modify the panel which
+        appears at the top of the game screen. 
+
+        Args:
+            panel (Panel): panel to be updated  '''
+
         self.rendered_shurikens = []
 
         self.panel = panel
 
     def render(self, display):
+        '''Renders every shuriken on a given display and updates their positions'''
         for shuriken in self.rendered_shurikens:
             shuriken.render(display)
             shuriken.update_position()
 
     def process_keyboard(self, key):
+        '''Processes keystrokes in order to throw shurikens'''
         if self.panel.shuriken_count <= 0:
             return
 
@@ -302,17 +333,30 @@ class ShurikenController:
 
 
 class EnemyNinjaController:
+    ''' 
+    Defines a controller to deal with all enemy ninjas appearing on screen.
+    It is responsible for rendering and spawning enemy ninjas.
+    '''
+
     def __init__(self, spawn_time):
+        '''
+        Initializes an array to store all enemy ninjas appearing on 
+        screen. A pygame event is set to be triggered between equal
+        intervals of time in milliseconds (spawn_time). This event 
+        is handled in the main loop of the game, calling spawn_enemy_ninjas.
+        '''
         self.rendered_enemy_ninjas = []
 
         pygame.time.set_timer(pygame.USEREVENT, spawn_time)
 
     def render(self, display):
+        '''Renders every enemy ninja on a given display and updates their positions'''
         for enemy_ninja in self.rendered_enemy_ninjas:
             enemy_ninja.render(display)
             enemy_ninja.update_position()
 
     def spawn_enemy_ninjas(self):
+        '''Randomly choose a side for the ninja and adds it to the array.'''
         side = random.choice(['RIGHT', 'LEFT'])
         self.rendered_enemy_ninjas.append(EnemyNinja(side=side))
 
@@ -324,9 +368,7 @@ class CollisionController:
     '''
 
     def __init__(self, meditating_ninja, shuriken_control, enemy_ninja_control, panel, gameover_action):
-        '''
-        Stores all game entities to access their properties within the class
-        '''
+        '''Stores all game entities to access their properties within the class'''
         self.meditating_ninja = meditating_ninja
         self.shuriken_control = shuriken_control
         self.enemy_ninja_control = enemy_ninja_control
