@@ -11,6 +11,8 @@ screens = dict(
     zip(SCREEN_NAMES, [Menu, EasyGame, HardGame, Rules, HighScores])
 )
 
+clock = pygame.time.Clock()
+
 
 def open_window(screen, name=None):
     '''
@@ -26,6 +28,7 @@ def open_window(screen, name=None):
     active_screen = screens[screen](name) if name else screens[screen]()
 
     while active_screen.run:
+        clock.tick(60)
         active_screen.render_frame()
 
     try:
